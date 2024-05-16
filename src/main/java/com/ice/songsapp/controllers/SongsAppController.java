@@ -2,6 +2,7 @@ package com.ice.songsapp.controllers;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
@@ -13,7 +14,8 @@ import reactor.core.publisher.Flux;
 @Slf4j
 public class SongsAppController {
     @GetMapping("/hello-world")
-    public Flux<String> getAvailablePromotions() {
+    @CrossOrigin(origins = "*")
+    public Flux<String> songsEndpoint() {
         return Flux.just("Hello World!");
     }
 }
