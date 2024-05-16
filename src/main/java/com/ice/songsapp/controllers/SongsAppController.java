@@ -14,6 +14,6 @@ import reactor.core.publisher.Flux;
 public class SongsAppController {
     @GetMapping("/hello-world")
     public Flux<String> getAvailablePromotions() {
-        return Flux.just("Hello World and Bye!");
+        return Flux.just("Hello World!");
     }
 }
