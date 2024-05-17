@@ -8,8 +8,6 @@ import com.ice.songsapp.web.mappers.SongsCatalogueMapper;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -21,7 +19,6 @@ import reactor.core.publisher.Mono;
 public class SongsAppController {
 
     SongsCatalogueRepository songsCatalogueRepository;
-    private static final Logger LOGGER = LoggerFactory.getLogger(SongsAppController.class);
 
     @GetMapping("/get-songs")
     @CrossOrigin(origins = "*")
