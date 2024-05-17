@@ -17,7 +17,6 @@ import reactor.core.publisher.Mono;
 @AllArgsConstructor
 @Slf4j
 public class SongsAppController {
-
     SongsCatalogueRepository songsCatalogueRepository;
 
     @GetMapping("/get-songs")
