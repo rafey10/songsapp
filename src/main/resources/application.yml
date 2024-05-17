@@ -1,5 +1,20 @@
-spring:
-    application:
+spring.application:
         name: songsapplication
 server:
     port: 8080
+
+mysql:
+    url: jdbc:mysql://${mysql.host}:${mysql.port}/${mysql.database}
+    host: songsappdbcluster.cvwu8yc8g8my.eu-north-1.rds.amazonaws.com
+    port: 3306
+    username: admin
+    password: adminadmin
+    database: songsapplicationdatbase
+
+spring:
+    datasource:
+        url: ${mysql.url}
+        username: ${mysql.username}
+        password: ${mysql.password}
+
+spring.jpa.hibernate.ddl-auto: create-drop
