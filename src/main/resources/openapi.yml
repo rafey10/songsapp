@@ -1,0 +1,166 @@
+openapi: 3.1.0
+
+info:
+    version: 1.0.0
+    title: Songs Service API
+    description: |
+        REST API for the Songs MicroService.
+        This API currently does not require any authentication and is publicly accessible.
+
+servers:
+    - description: Prod
+      url: https://b25hr3zed5.execute-api.eu-north-1.amazonaws.com/songsappdeploymentstage
+
+paths:
+    /get-songs:
+        get:
+            operationId: getAvailableSongs
+            summary: Get all available songs in the DataBase.
+            responses:
+                '200':
+                    description: List of available songs
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: #/components/schemas/Song
+                default:
+                    description: Default errors
+                    '500':
+                        description: Internal Server Error
+                        content:
+                            application/json:
+                                example:
+                                    failureReason: INTERNAL_SERVER_ERROR
+                                schema:
+                                    $ref: #/components/schemas/Error
+
+    /add-song:
+        post:
+            operationId: addSong
+            summary: Add a Song to the DataBase
+            description: Adds a song to the DataBase and returns the added song.
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            description: Parameters required to submit a song
+                            required:
+                                - song
+                                - artist
+                                - album
+                                - genre
+                                - length
+                                - releaseYear
+                            properties:
+                                song:
+                                    type: string
+                                    example: "SongName"
+                                    description: The unique name for the song.
+                                    artist:
+                                        type: string
+                                        example: "Artist"
+                                        description: The name of the Artist.
+                                    album:
+                                        type: string
+                                        example: "Album"
+                                        description: The name of the Album.
+                                    genre:
+                                        type: string
+                                        example: "Genre"
+                                        description: The name of the song.
+                                    length:
+                                        type: string
+                                        example: "00:02:30"
+                                        description: The length of the song in HH:MM:SS format.
+                                    releaseYear:
+                                        type: string
+                                        example: "2019"
+                                        description: A valid year between 1800 and 2024.
+            responses:
+                '202':
+                    description: Song Added Successfully
+                    content:
+                        application/json:
+                            schema:
+                                $ref: #/components/schemas/Song
+                '409':
+                    description: Song already added
+                    content:
+                        application/json:
+                            example:
+                                failureReason: SONG_ALREADY_ADDED
+                            schema:
+                                $ref: #/components/schemas/Error
+                default:
+                    description: Default errors
+                    '500':
+                        description: Internal Server Error
+                        content:
+                            application/json:
+                                example:
+                                    failureReason: INTERNAL_SERVER_ERROR
+                                schema:
+                                    $ref: #/components/schemas/Error
+
+components:
+    schemas:
+        Error:
+            type: object
+            description: An error response.
+            properties:
+                failureReason:
+                    type: string
+                    example: BAD_REQUEST
+                    description: An error code identifying the type of error.
+                details:
+                    type: object
+                    example:
+                        field: songName
+                        message: must not be empty
+                    description: Further details about the error.
+                    additionalProperties: true
+    Song:
+        type: object
+        description: A Song
+        required:
+            - id
+            - song
+            - artist
+            - album
+            - genre
+            - length
+            - releaseYear
+        properties:
+            id:
+                type: string
+                example: "5"
+                description: A unique identifier for a song.
+            song:
+                type: string
+                example: "SongName"
+                description: The unique name for the song.
+            artist:
+                type: string
+                example: "Artist"
+                description: The name of the Artist.
+            album:
+                type: string
+                example: "Album"
+                description: The name of the Album.
+            genre:
+                type: string
+                example: "Genre"
+                description: The name of the song.
+            length:
+                type: string
+                example: "00:02:30"
+                description: The length of the song in HH:MM:SS format.
+            releaseYear:
+                type: string
+                example: "2019"
+                description: A valid year between 1800 and 2024.
+
+
