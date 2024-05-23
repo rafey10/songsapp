@@ -17,4 +17,4 @@ spring:
         username: ${mysql.username}
         password: ${mysql.password}
 
-spring.jpa.hibernate.ddl-auto: create-drop
+#spring.jpa.hibernate.ddl-auto: create-drop
